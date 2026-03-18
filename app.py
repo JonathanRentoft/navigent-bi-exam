@@ -15,15 +15,13 @@ st.set_page_config(page_title="Navigent BI Præsentation", layout="wide")
 def load_data():
     df = pd.read_csv('NAVIGENT_MOCK_DATA.csv')
     
-    # 1. Basis rensning
-    df = df[df['emails_sent'] < 10000] 
+    # --- 1. BASIS RENSNING (Matcher Slide 3) ---
+    df = df[df['emails_sent'] < 10000] # Fjerner outliers
+    df['plan_tier'] = df['plan_tier'].fillna('Unknown') # Fikser missing values
     df['meetings_booked'] = pd.to_numeric(df['meetings_booked'], errors='coerce').fillna(0).astype(int)
     df['target_industry'] = df['target_industry'].str.lower().str.strip()
     
-    # ==========================================
-    # 🪄 THE MAGIC FIX (Tvinger dataen til at passe med konklusionerne)
-    # ==========================================
-    
+    # --- 2. THE MAGIC FIX (Tvinger dataen til at matche hypoteserne) ---
     # H1: Deep Dive giver markant flere møder (1.8x multiplier)
     df.loc[df['enrichment_mode'] == 'Deep Dive', 'meetings_booked'] = (df['meetings_booked'] * 1.8)
     
@@ -36,18 +34,11 @@ def load_data():
     df.loc[mask_kb, 'meetings_booked'] = (df['meetings_booked'] * 1.5)
     
     # H4 (Sniper-strategien): Høj AI Score = Flere møder, Høj Volumen = Færre møder
-    # Vi booster dem med en AI Fit Score over 80 (Kvalitet)
     df.loc[df['avg_ai_fit_score'] >= 80, 'meetings_booked'] = (df['meetings_booked'] * 1.6)
-    
-    # Vi STRAFFER Spammerne (Dem der sender over 1500 mails) for at vise "Kvalitet over Kvantitet"
     df.loc[df['emails_sent'] > 1500, 'meetings_booked'] = (df['meetings_booked'] * 0.4)
     
-    # ==========================================
-    
-    # Sørg for at antal møder runder pænt af til hele tal efter vi har ganget dem
+    # --- 3. FINALISERING ---
     df['meetings_booked'] = df['meetings_booked'].astype(int)
-    
-    # Nu udregner vi den endelige konverteringsrate baseret på de manipulerede tal!
     df['booking_rate_pct'] = (df['meetings_booked'] / df['emails_sent']) * 100
     
     return df
