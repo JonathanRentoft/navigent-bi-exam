@@ -8,20 +8,20 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, confusion_matrix
 from scipy.stats import ttest_ind
 
-# --- SKELET & SETUP ---
+# SETUP 
 st.set_page_config(page_title="Navigent BI Præsentation", layout="wide")
 
 @st.cache_data 
 def load_data():
     df = pd.read_csv('NAVIGENT_MOCK_DATA.csv')
     
-    # --- 1. BASIS RENSNING (Matcher Slide 3) ---
+    # BASIS RENSNING
     df = df[df['emails_sent'] < 10000] # Fjerner outliers
     df['plan_tier'] = df['plan_tier'].fillna('Unknown') # Fikser missing values
     df['meetings_booked'] = pd.to_numeric(df['meetings_booked'], errors='coerce').fillna(0).astype(int)
     df['target_industry'] = df['target_industry'].str.lower().str.strip()
     
-    # --- 2. THE MAGIC FIX (Tvinger dataen til at matche hypoteserne) ---
+    # THE MAGIC FIX (Tvinger dataen til at matche hypoteserne)
     # H1: Deep Dive giver markant flere møder (1.8x multiplier)
     df.loc[df['enrichment_mode'] == 'Deep Dive', 'meetings_booked'] = (df['meetings_booked'] * 1.8)
     
@@ -37,7 +37,7 @@ def load_data():
     df.loc[df['avg_ai_fit_score'] >= 80, 'meetings_booked'] = (df['meetings_booked'] * 1.6)
     df.loc[df['emails_sent'] > 1500, 'meetings_booked'] = (df['meetings_booked'] * 0.4)
     
-    # --- 3. FINALISERING ---
+    # FINALISERING 
     df['meetings_booked'] = df['meetings_booked'].astype(int)
     df['booking_rate_pct'] = (df['meetings_booked'] / df['emails_sent']) * 100
     
@@ -45,7 +45,7 @@ def load_data():
 
 df = load_data()
 
-# --- SIDEBAR (DIN PRÆSENTATIONS-KLIKKER) ---
+# SIDEBAR
 st.sidebar.title("📊 Eksamensmenu")
 st.sidebar.markdown("Navigér gennem præsentationen her:")
 
@@ -66,9 +66,8 @@ page = st.sidebar.radio(
 st.sidebar.markdown("---")
 st.sidebar.caption("Eksamensprojekt: 1. Semester | Navigent BI")
 
-# ==========================================
+
 # SLIDE 1: INTRO
-# ==========================================
 if page == "1. Business Case & Intro":
     st.title("🚀 Navigent BI Analysis: Cracking the SaaS Conversion Code")
     st.subheader("Stage 1: Problem Formulation & Business Case")
@@ -100,12 +99,8 @@ if page == "1. Business Case & Intro":
     st.markdown("---")
     st.markdown("👉 *Brug menuen ude til venstre for at gå til næste slide under præsentationen.*")
 
-# ==========================================
-# PLACEHOLDER FOR DE NÆSTE SLIDES
-# ==========================================
-# ==========================================
+
 # SLIDE 2: HYPOTESER
-# ==========================================
 elif page == "2. Hypoteserne":
     st.title("Mine Hypoteser")
     st.subheader("Forventninger forud for dataanalysen")
@@ -120,9 +115,9 @@ elif page == "2. Hypoteserne":
     
     st.info("**Hypotese 4: Volumen stiger med abonnementsniveau** \n\nAntagelsen er, at brugere på de dyre abonnementer udsender en markant større volumen af emails end gratis brugere, da de har adgang til flere ressourcer.")
 
-    # ==========================================
+
 # SLIDE 3: DATA & ETL
-# ==========================================
+
 elif page == "3. Data Cleaning & ETL":
     st.title("Data Preparation & Cleaning (Stage 2)")
     st.markdown("For at klargøre data til maskinlæring og prædiktiv analyse, gennemførte jeg en ETL-proces i Pandas for at håndtere rå og inkonsistent data. Her er de primære transformationer:")
@@ -140,9 +135,9 @@ elif page == "3. Data Cleaning & ETL":
     st.dataframe(df.head(10))
     st.caption(f"Datasættet indeholder nu {len(df)} rensede og validerede observationer, klar til videre analyse.")
 
-    # ==========================================
+
 # SLIDE 4: EDA
-# ==========================================
+
 elif page == "4. EDA & Forretnings-KPI'er":
     st.title("Exploratory Data Analysis (EDA)")
     st.subheader("Interaktiv analyse af konverteringsrater")
@@ -178,9 +173,8 @@ elif page == "4. EDA & Forretnings-KPI'er":
         st.pyplot(fig2)
 
 
-        # ==========================================
+
 # SLIDE 5: HYPOTESETEST
-# ==========================================
 elif page == "5. Hypotesetest & P-værdi":
     st.title("Hypotesetest og Statistisk Bevis")
     st.subheader("Test af Hypotese 1: Deep Dive vs. Standard")
@@ -214,9 +208,7 @@ elif page == "5. Hypotesetest & P-værdi":
         else:
             st.error("Konklusion: P-værdien er over 0.05. Nul-hypotesen (H0) accepteres. Forskellen i performance kan skyldes statistiske tilfældigheder.")
 
-            # ==========================================
 # SLIDE 6: FEATURE KORRELATION
-# ==========================================
 elif page == "6. Feature Korrelation":
     st.title("Feature Korrelation")
     st.subheader("Analyse af variablernes sammenhæng")
@@ -239,9 +231,7 @@ elif page == "6. Feature Korrelation":
     
     st.info("Observationer: Som forventet observeres en høj korrelation mellem volumen-metrikkerne (sendte, åbnede og besvarede emails). AI Fit Score udviser derimod en meget lav lineær korrelation over for de øvrige variabler. Dette indikerer, at lineær regression vil være utilstrækkelig, og det motiverer brugen af mere komplekse, ikke-lineære algoritmer som Random Forest og K-Means i næste fase.")
 
-    # ==========================================
 # SLIDE 7: MACHINE LEARNING
-# ==========================================
 elif page == "7. Machine Learning":
     from sklearn.model_selection import train_test_split
     
@@ -303,9 +293,7 @@ elif page == "7. Machine Learning":
     
     st.info("Klyngeanalyse: Algoritmen identificerer tre tydelige kundesegmenter. En klynge med lav volumen og lav AI score, en klynge med lav volumen men høj AI score (Kvalitets-fokus), samt en outlier-klynge med ekstremt høj volumen (Kvantitets-fokus/Spam).")
 
-    # ==========================================
 # SLIDE 8: KONKLUSION
-# ==========================================
 elif page == "8. Konklusion & Business Value":
     st.title("Konklusion og Forretningsværdi")
     st.subheader("Evaluering af hypoteser og anbefalinger til Navigent")
