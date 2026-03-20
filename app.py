@@ -46,7 +46,7 @@ def load_data():
 df = load_data()
 
 # SIDEBAR
-st.sidebar.title("📊 Eksamensmenu")
+st.sidebar.title("Nav")
 st.sidebar.markdown("Navigér gennem præsentationen her:")
 
 page = st.sidebar.radio(
@@ -69,8 +69,8 @@ st.sidebar.caption("Eksamensprojekt: 1. Semester | Navigent BI")
 
 # SLIDE 1: INTRO
 if page == "1. Business Case & Intro":
-    st.title("🚀 Navigent BI Analysis: Cracking the SaaS Conversion Code")
-    st.subheader("Stage 1: Problem Formulation & Business Case")
+    st.title(" Navigent BI Analysis on syntethic data:")
+    st.subheader("Stage 1: Problem formulering & Business Case")
     
     st.markdown("---")
     
@@ -78,26 +78,26 @@ if page == "1. Business Case & Intro":
     
     with col1:
         st.markdown("""
-        ### Hvem er vi?
-        Jeg driver til daglig SaaS-virksomheden **Navigent** – en intelligent Revenue Operations platform bygget til leadgen og automatiseret outreach.
+        ### Hvem er jeg?
+        Jeg driver til daglig SaaS-virksomheden **Navigent** – en platform bygget til leadgen og automatiseret outreach.
         
         Vi adskiller os ved at køre en **"No-Cure-No-Pay" credit economy**, hvor vores brugere betaler for leverede resultater. Systemet tilbyder to typer AI-berigelse af leads:
         
-        * 🥉 **Standard Leads (1 credit):** Basal data og outreach.
-        * 🥇 **Deep Dive Leads (3 credits):** Dybdegående AI-analyse af leadets website for hyper-personalisering.
+        *  **Standard Leads (1 credit):** Basal data og outreach.
+        *  **Deep Dive Leads (3 credits):** Dybdegående AI-analyse af leadets website for hyper-personalisering.
         
         Derudover kan brugerne uploade virksomhedsdokumenter til vores **Knowledge Base (RAG)** for at give AI'en endnu skarpere kontekst, når den skriver e-mails.
         """)
         
     with col2:
         st.info("""
-        **🎯 Mit Problem Statement:**
+        ** Mit Problem Statement:**
         
         *Kan det reelt betale sig for brugerne at investere 3x credits i Deep Dive leads?* *Hvilke faktorer driver faktisk konverteringerne (bookede møder) på platformen, og kan vi forudsige en kampagnes succes baseret på disse faktorer?*
         """)
         
     st.markdown("---")
-    st.markdown("👉 *Brug menuen ude til venstre for at gå til næste slide under præsentationen.*")
+    st.markdown(" *Brug menuen ude til venstre for at gå til næste slide under præsentationen.*")
 
 
 # SLIDE 2: HYPOTESER
@@ -107,13 +107,13 @@ elif page == "2. Hypoteserne":
     
     st.markdown("Inden selve dataanalysen og modelleringen gik i gang, opstillede jeg fire kernehypoteser baseret på min forretningsforståelse af Navigent platformen.")
     
-    st.info("**Hypotese 1: Deep Dive overgår Standard** \n\nAntagelsen er, at brugere der investerer i Deep Dive berigelse opnår en signifikant højere konverteringsrate og flere bookede møder end brugere af Standard leads.")
+    st.info("**Hypotese 1: Deep Dive overgår Standard** \n\nAntagelsen er, at brugere der investerer i Deep Dive berigelse opnår en signifikant højere konverteringsrate og flere bookede møder end brugere af Standard leads fordi de får fat i flere beslutningstageres emails fremfor info mails.")
     
     st.info("**Hypotese 2: Brancheforskelle favoriserer SaaS** \n\nAntagelsen er, at platformen performer bedst og skaber mest værdi inden for SaaS segmentet sammenlignet med mere konservative brancher som finans.")
     
-    st.info("**Hypotese 3: Knowledge Base optimering virker** \n\nAntagelsen er, at kampagner hvor brugeren har aktiveret Knowledge Base for at give AI systemet kontekst, konverterer bedre end dem uden. Dette forventes især at gælde i komplekse brancher.")
+    st.info("**Hypotese 3: Knowledge Base optimering virker (RAG)** \n\nAntagelsen er, at kampagner hvor brugeren har aktiveret Knowledge Base for at give AI systemet kontekst, konverterer bedre end dem uden. Dette forventes især at gælde i komplekse brancher.")
     
-    st.info("**Hypotese 4: Volumen stiger med abonnementsniveau** \n\nAntagelsen er, at brugere på de dyre abonnementer udsender en markant større volumen af emails end gratis brugere, da de har adgang til flere ressourcer.")
+    st.info("**Hypotese 4: Volumen stiger med abonnementsniveau** \n\nAntagelsen er, at brugere på de dyre abonnementer udsender en markant større volumen af emails end gratis brugere, da de har adgang til flere kreditter.")
 
 
 # SLIDE 3: DATA & ETL
@@ -124,8 +124,8 @@ elif page == "3. Data Cleaning & ETL":
     
     col1, col2 = st.columns(2)
     with col1:
-        st.success("**1. Kategoriseringsfejl:** Standardisering af inkonsistent tekst. Store og små bogstaver samt skæve mellemrum i industrikolonnen blev rettet til et uniformt format.")
-        st.success("**2. Missing Values:** Imputering af manglende værdier i kolonnen for abonnementsniveau, som blev udfyldt med værdien 'Unknown'.")
+        st.success("**1. Kategoriseringsfejl:** Standardisering af inkonsistent tekst. Store og små bogstaver samt skæve mellemrum i industrikolonnen blev rettet til et ens format.")
+        st.success("**2. Missing Values:** Indsætning af manglende værdier i kolonnen for abonnementsniveau, som blev udfyldt med værdien 'Unknown'.")
     with col2:
         st.success("**3. Outliers (IQR):** Identifikation og filtrering af ekstreme outliers, herunder fejlindtastninger på massive email-volumener, via den statistiske IQR-metode.")
         st.success("**4. Datatyper:** Konvertering af tekst-fejl og manglende værdier til heltal, så algoritmerne kan udføre matematiske beregninger på datasættet.")
@@ -315,4 +315,3 @@ elif page == "8. Konklusion & Business Value":
     
     st.markdown("**Anbefaling til ledelsen:** \nNavigent bør justere sin onboarding-proces for at opfordre nye brugere til en målrettet kvalitetsstrategi frem for massiv volumen. Derudover bør ROI'en ved Deep Dive berigelse aktivt fremhæves i markedsføringen, især over for SaaS-segmentet.")
     
-    st.caption("Eksamenspræsentation afsluttet. Tak for opmærksomheden.")
