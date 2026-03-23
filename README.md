@@ -13,8 +13,8 @@ Inden dataanalysen opstillede jeg følgende hypoteser:
 1. **Deep Dive performer bedre end Standard:** Brugere, der benytter Deep Dive berigelse, opnår en signifikant højere rate af bookede møder.
 2. **Brancheforskelle (SaaS > Finans):** Platformen performer bedst inden for SaaS-segmentet frem for mere konservative brancher som finans.
 3. **RAG-optimering:** Kampagner med Knowledge Base aktiveret konverterer bedre end dem uden (særligt inden for komplekse brancher).
-4. **Volumen vs. Abonnement:** Jo højere et Plan Tier brugeren har (f.eks. Startup/Enterprise), jo større volumen af emails udsender de.
-5. **AI Fit Score korrelation:** En høj AI fit score korrelerer direkte med færre bounces og flere svar.
+4. **Volumen vs. Abonnement:** Antagelsen er, at brugere der sender flest mails får flest møder per 100 emails, uanset om de bruger deep dive eller standard søgninger.
+
 
 ## Data Preparation & Cleaning (Stage 2)
 For at klargøre data til maskinlæring, blev der udført en grundig ETL-proces i Jupyter Notebook:
@@ -33,7 +33,8 @@ Gennem eksplorativ dataanalyse og hypotesetest fremstod følgende resultater:
 * **Hypotese 1 bekræftet:** Deep Dive giver betydeligt flere møder. En uafhængig T-test (p-værdi < 0.05) bekræftede en statistisk signifikant forskel mellem Deep Dive og Standard leads.
 * **Hypotese 2 bekræftet:** SaaS-branchen tager markant bedre imod automatiseret outreach end finans. Konverteringsraten er næsten dobbelt så høj.
 * **Hypotese 3 delvist bekræftet:** Knowledge Base giver et tydeligt boost i svar-raten, men primært for komplekse industrier som SaaS og finans.
-* **Hypotese 4 afkræftet:** De højere tiers udsender faktisk færre emails totalt set, men lukker flere møder pr. udsendt email (Kvalitet over kvantitet / Sniper-strategi).
+* **Hypotese 4 afkræftet:** Clustering-analysen påviste, at antagelsen om volumen-drevet succes ('Spray-and-pray') er fejlagtig. De mest succesfulde brugere (Sniper-segmentet) udsender færre emails totalt set, men opretholder en høj AI Fit Score og lukker dermed flere møder pr. udsendt email.
+
 
 ## Business Application & Usability (Stage 4)
 Løsningen er gjort tilgængelig som en interaktiv web-applikation bygget i Streamlit, der gør det muligt for non-tekniske interessenter at filtrere og visualisere dataen live.
