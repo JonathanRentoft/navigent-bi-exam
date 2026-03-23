@@ -37,11 +37,7 @@ Gennem eksplorativ dataanalyse og hypotesetest fremstod følgende resultater:
 
 
 ## Business Application & Usability (Stage 4)
-Løsningen er gjort tilgængelig som en interaktiv web-applikation bygget i Streamlit, der gør det muligt for non-tekniske interessenter at filtrere og visualisere dataen live.
+Løsningen er gjort tilgængelig som en interaktiv web-applikation bygget i Streamlit, der gør det muligt at filtrere og visualisere dataen live.
 
-**Usability Evaluation:** Inden aflevering blev prototypen præsenteret for en testperson. Baseret på feedback blev der implementeret en sidebar til industrifiltrering samt fremhævede KPI-kort i toppen af interfacet for at gøre det samlede overblik mere intuitivt og tilgængeligt.
 
-**Sådan køres applikationen lokalt:**
-1. Klon repository
-2. Kør `pip install -r requirements.txt`
-3. Start appen med `streamlit run app.py`
+
