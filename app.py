@@ -113,7 +113,7 @@ elif page == "2. Hypoteserne":
     
     st.info("**Hypotese 3: Knowledge Base optimering virker (RAG)** \n\nAntagelsen er, at kampagner hvor brugeren har aktiveret Knowledge Base for at give AI systemet kontekst, konverterer bedre end dem uden. Dette forventes især at gælde i komplekse brancher.")
     
-    st.info("**Hypotese 4: Volumen stiger med abonnementsniveau** \n\nAntagelsen er, at brugere på de dyre abonnementer udsender en markant større volumen af emails end gratis brugere, da de har adgang til flere kreditter.")
+    st.info("**Hypotese 4: Kvalitet over kvantitet** \n\nAntagelsen er, at brugere der sender flest mails får flest møder per 100 emails, uanset om de bruger deep dive eller standard søgninger.")
 
 
 # SLIDE 3: DATA & ETL
