@@ -268,7 +268,7 @@ elif page == "7. Machine Learning":
     st.divider()
     
     st.subheader("2. H4 Bevis: Sniper vs. Spray-and-Pray")
-    st.markdown("Korrelationsmatrixen viste at emails_sent korrelerer negativt med booking_rate_pct (-0.29). Her visualiserer vi det direkte: kampagner opdeles i to grupper baseret på volumen, og vi sammenligner deres effektivitet.")
+    st.markdown("Korrelationsmatrixen viste at emails_sent korrelerer negativt med booking_rate_pct (-0.32). Her visualiserer vi det direkte: kampagner opdeles i to grupper baseret på volumen, og vi sammenligner deres effektivitet.")
 
     # Opdel kampagner i to strategier baseret på H4-grænsen fra data-injektionen
     df['strategi'] = df['emails_sent'].apply(
